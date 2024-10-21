@@ -75,5 +75,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.hosts.clear
+  # Railsで画像のサイズ変更に伴うエラー回避用
+  config.active_job.queue_adapter = :inline
 
 end
