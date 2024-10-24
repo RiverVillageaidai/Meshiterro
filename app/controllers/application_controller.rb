@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     about_path
   end
+   # after_sign_out_path_forはDeviseが用意しているメソッド サインアウト後にどこに遷移するかを設定している
+  def after_sign_out_path_for(resource)
+    about_path
+  end
 
   # privateは記述をしたコントローラ内でしか参照できません。
   # 一方、protectedは呼び出された他のコントローラからも参照することができます。
