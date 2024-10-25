@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root 'homes#top'
   devise_for :users
   # コントローラの同じ名前のアクションに紐づく形で、ルーティングを自動生成
-  resources :post_images, only: [:new, :index, :show]
+  resources :post_images, only: [:new, :create, :index, :show]
   
   
   get 'homes/about' => 'homes#about' , as: 'about'
