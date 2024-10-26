@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   # after_sign_in_path_forはDeviseが用意しているメソッド サインイン後にどこに遷移するかを設定している
   # 引数resourceはログインを実行したモデルのデータ、今回の場合はログインしたUserのインスタンスが格納されています。
   def after_sign_in_path_for(resource)
-    about_path
+    post_images_pa
   end
    # after_sign_out_path_forはDeviseが用意しているメソッド サインアウト後にどこに遷移するかを設定している
   def after_sign_out_path_for(resource)
