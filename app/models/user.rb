@@ -13,7 +13,8 @@ class User < ApplicationRecord
          
   # has_many アソシエーション　dependent: :destroy 1:Nの1側が削除されたとき、N側を全て削除する
   has_many :post_images, dependent: :destroy
-
+  has_many :post_comments, dependent: :destroy
+  
   has_one_attached :profile_image
 
    # プロフィール画像表示用のメソッド

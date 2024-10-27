@@ -4,6 +4,9 @@ class PostImage < ApplicationRecord
   
   # belongs_to    アソシエーション
   belongs_to :user
+  # has_many アソシエーション　dependent: :destroy 1:Nの1側が削除されたとき、N側を全て削除する
+  has_many :post_comments, dependent: :destroy
+
   
   # 投稿画像表示用のメソッド
   def get_image
