@@ -2,12 +2,15 @@ Rails.application.routes.draw do
   devise_for :users
   root 'homes#top'
   get 'homes/about' => 'homes#about' , as: 'about'
-  
+
   # コントローラの同じ名前のアクションに紐づく形で、ルーティングを自動生成
   resources :post_images, only: [:new, :create, :index, :show, :destroy] do
     # このような親子関係を、「ネストする」と言うネストしたURLを作成することでparams[:post_image_id]でPostImageのidが取得できる
-    # ルーティングpost_image_post_comments　
-     resources :post_comments, only: [:create, :destroy]
+
+    # 今まではresourcesでしたが、ここでは、resource 単数形にすると、/:idがURLに含まれなくなります。
+    resource :favorite, only: [:create, :destroy]
+    # ルーティングpost_image_post_comments
+    resources :post_comments, only: [:create, :destroy]
   end
 
   resources :users, only: [:show, :edit , :update]
