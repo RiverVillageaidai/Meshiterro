@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :post_images, only: [:new, :create, :index, :show, :destroy] do
     # このような親子関係を、「ネストする」と言うネストしたURLを作成することでparams[:post_image_id]でPostImageのidが取得できる
     # ルーティングpost_image_post_comments　
-     resources :post_comments, only: [:create]
+     resources :post_comments, only: [:create, :destroy]
   end
 
   resources :users, only: [:show, :edit , :update]
