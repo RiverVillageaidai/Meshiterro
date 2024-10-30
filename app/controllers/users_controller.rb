@@ -1,13 +1,14 @@
 class UsersController < ApplicationController
   # プロフィール詳細
   def show
-    @user = User.find(current_user.id)
-    @post_images = @user.post_images
+
+    @user = User.find(params[:id])
+    @post_images = @user.post_images.page(params[:page])
   end
 
   #プロフィール編集
   def edit
-    @user = User.find(current_user.id)
+    @user = User.find(params[:id])
   end
 
   # プロフィール更新
