@@ -7,6 +7,14 @@ class PostImage < ApplicationRecord
   # has_many アソシエーション　dependent: :destroy 1:Nの1側が削除されたとき、N側を全て削除する
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  
+  
+  # shop_nameが存在しているかを確認するバリデーション　trueと記述すると、データが存在しなければならないという設定
+  validates :shop_name, presence: true
+  
+  # imageが存在しているかを確認するバリデーション
+  validates :image, presence: true
+  
 
   # 投稿画像表示用のメソッド
   def get_image

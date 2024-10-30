@@ -8,15 +8,18 @@ class PostImagesController < ApplicationController
     # @post_image.user_id,この投稿の user_id としてcurrent_user.id の値を代入する
     # current_user→ deviseヘルパーメソッド　current_user.id と記述することでログインユーザーの id を取得する
     @post_image.user_id = current_user.id
-    @post_image.save
-    redirect_to post_images_path
+    if @post_image.save
+      redirect_to post_images_path
+    else
+      render :new
+    end
   end
 
 
   def index
     @post_images = PostImage.all
-  end
 
+  end
   def show
     @post_image = PostImage.find(params[:id])
     @post_comment = PostComment.new
