@@ -2,45 +2,117 @@
 <html>
   <head>
     <title>Meshiterro</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    # <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    # FontAwesome用
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <%# Font Awesome用 %>
     <script src="https://kit.fontawesome.com/81b2a4006b.js" crossorigin="anonymous"></script>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-   <header>
-      <!--devise 側で用意しているヘルパーメソッドログインしているかしていないかを判断　ログイン済みtrue-->
-      <% if user_signed_in? %>
-        <li>
-          <%= link_to '投稿フォーム', new_post_image_path %>
-        </li>
-      
-        <li>
-          <%= link_to 'マイページ', user_path(current_user.id) %>
-        </li>
-      
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
+  <%# "d-flex"は、Flexbox（柔軟なレイアウトを提供するCSSの仕組み）をbody要素に適用するためのクラス %>
+  <%# "flex-column"は、Flexboxを垂直方向に並べるように指定するクラス %>
+  <%# "vh-100"は、ビューポートの高さ（Viewport Height）の100%を指定するためのクラスで、画面全体を覆うような高さを持たせることができる %>
+  <body class="d-flex flex-column vh-100">
+    <%# "shadow-sm"は、要素に影を与えるためのクラス %>
+    <header class="shadow-sm">
+      <%# "navbar"：Navbarコンポーネントの基本的なスタイルを適用するクラス %>
+      <%# "navbar-expand-lg"：LG（Large）サイズ以上のデバイスでNavbarが展開される.そうでない場合ハンバーガーメニューになる %>
+      <%# "navbar-light"：明るい色調のNavbarを表現するクラス ※navbar-[カラースキーム]の指定がないと画面幅が変化したときに、
+      ナビゲーションアイコン（ハンバーガーメニュー）に配色が当たらないために画面上には要素は存在するが、見えないといったことが起こります。%>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <%# "navbar-bran"ロゴに使用されるnavbarのサポートClass %>
+          <%# "p-3"：Padding（余白）の設定を行うクラス %>
+          <%# "href="/"：リンクのURLを指定する属性で、ここではホームページのルートディレクトリを指定している%>
+          <a class="navbar-brand p-3" href="/"><%= image_tag('logo.png') %></a>
+          <%# "navbar-toggler"：Navbarのトグルボタンとして機能するクラス。このクラスが付与されたボタンをクリックすると、ナビゲーションが開閉されるようになる %>
+          <%# "type="button""：ボタン要素であることを指定する属性 %>
+          <%# "data-toggle="collapse""：ボタングループをクリックしたときに折りたたみ（collapse）機能をトグルするための属性 %>
+          <%# "data-target="#navbarNavDropdown""：折りたたみ機能を実行する際の対象となる要素を指定する属性。この場合、"navbarNavDropdown"というIDを持つ要素が折りたたまれることになる %>
+          <%# "aria-controls="navbarNavDropdown""：折りたたまれる要素（コンテンツ）を識別するための属性 %>
+          <%# "aria-expanded="false""：折りたたまれた状態を示す属性で、初期値は"false"。ボタンをクリックすることで"aria-expanded"属性の値が変化する %>
+          <%# "aria-label="Toggle navigation""：ボタンの目的や機能を簡潔に説明するための属性 %>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <%# "navbar-toggler-icon" ナビゲーションアイコン（ハンバーガーメニュー）の三本線部分 navbar-toggler-iconのclassに対してbackground-imageで画像が割り当てられている%>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <%# "collapse"：要素を折りたたむ（非表示にする）ためのクラス。このクラスを指定することで、要素が初めから非表示になる %>
+          <%# "navbar-collapse"：Navbar内でコンポーネント（メニューなど）を収納するためのクラス。このクラスを指定することで、Navbar内の要素を折りたたむことができる %>
+          <%# "id="navbarNavDropdown""：この折りたたみ（collapse）要素に対して一意のIDを付与している。このIDを使って、他の要素と関連付けたり、JavaScriptなどで要素を制御する際に使用される %>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <%# "navbar-nav"：Bootstrapのクラスで、ナビゲーションメニューを定義するためのクラス。このクラスが付与されると、リストアイテム（li要素）がNavbar内でナビゲーションメニューとして機能する %>
+            <%# "ml-auto"：左からではなく右側に余白を持たせるためのクラス。"ml"はマージン（margin）左側を指定するクラスで、"auto"は自動的にスペースを計算し、右側に余白を追加する指示を表す %>
+            <ul class="navbar-nav ml-auto">
+              <!--"user_signd_in?" :devise 側で用意しているヘルパーメソッドログインしているかしていないかを判断.ログイン済みtrue-->
+              <% if user_signed_in? %>
+                <%# "nav-link"：Bootstrapで提供されるナビゲーションメニュー内のリンク（navbar link）に適用されるクラス。
+                このクラスが付与されたリンクは、Navbar内のナビゲーションメニューとして適切なスタイルと挙動を持つ %>
+                <%# "text-dark"：テキストの色を暗くするためのクラス %>
+                <li class="nav-item">
+                  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
+                </li>
 
-      <% else %>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-      <% end %>
+                <li class="nav-item">
+                  <%= link_to '投稿フォーム', new_post_image_path, class: 'nav-link text-dark' %>
+                </li>
 
+                <li class="nav-item">
+                  <%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link text-dark' %>
+                </li>
+
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-dark' %>
+                </li>
+
+                <li class="nav-item">
+                  <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
+                </li>
+
+              <% end %>
+
+            </ul>
+
+          </div>
+        </div>
+      </nav>
     </header>
- 
 
-    <%= yield %>
+    <main class="mb-auto">
+      <%= yield %>
+    </main>
+
+    <footer class="bg-dark text-white pt-5 pb-4">
+      <div class="container">
+        <div class="row no-gutters">
+
+          <div class="col-md-4">
+            <p>善良な市民同士で無差別に食欲を煽るSNS</p>
+            <%= image_tag('logo-white.png') %>
+          </div>
+
+          <div class="col-md-8">
+            <h6 class="text-white mt-2 mb-3">Link</h6>
+            <ul class="p-0 list-unstyled">
+              <li>
+                <a href="" title="About" class="text-white-50">会社概要</a>
+              </li>
+              <li>
+                <a href="" title="License informations" class="text-white-50">プライバシーポリシー</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </footer>
   </body>
+
 </html>
