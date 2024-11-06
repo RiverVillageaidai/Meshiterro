@@ -1,24 +1,71 @@
 <!--PostImages#new-->
 
-<h1>画像投稿フォーム</h1>
-<!--errors.any? エラーが発生しているか？-->
-<% if @post_image.errors.any? %>
-　<!--errors.count エラーの数をカウント-->
-  <%= @post_image.errors.count %>件のエラーが発生しました
-  <ul>
-    <!--errors.full_messages エラーの内容を出力-->
-    <% @post_image.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with model: @post_image do |f| %>
-  <h4>画像</h4>
-  <%= f.file_field :image, accept: "image/*" %>
-  <h4>ショップ名</h4>
-  <%= f.text_field :shop_name %>
-  <h4>説明</h4>
-  <%= f.text_area :caption %>
-  <%=f.submit '投稿' %>
-<% end %>
+<div class="container">
+  <%#  "no-gutters"：行（Row）内の列（Column）間に余白（Gutters）を設定しないことを示すクラス %>
+  <div class="row no-gutters">
+    <%# "col-md-5"：中サイズ（Medium）の画面以上（viewport width>=768px）では、5つの列の幅を持つコンテンツとして表示 %>
+    <%#  "col-sm-10"：小サイズ（Small）の画面以上（viewport width>=576px）では、10つの列の幅を持つコンテンツとして表示 %>
+    <%#  "mx-2"：水平方向（左右）の余白として2のスペースを設定 %>
+    <%#  "mx-sm-auto"：小サイズ以上の画面において、水平方向の余白を自動的に設定 %>
+    <%# "shadow-lg"：コンテンツに大きな影を付けるためのクラス %>
+    <%#  "rounded"：コンテンツを角丸にするためのクラス %>
+    <%# "px-0"：左右のパディング（Padding）を0に設定   "my-5"：上下のマージン（Margin）として5のスペースを設定 %>
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <%# "text-dark"：テキストのカラーを暗く（通常は黒色）に設定するためのクラス %>
+      <%# "bg-light"：背景色を明るい色（通常は白色）に設定するためのクラス %>
+      <%# "p-4"：上下左右にパディング（余白）を4つ分追加するためのクラス "mb-0"：下部のマージン（余白）を0に設定するためのクラス %>
+      <h5 class="text-dark bg-light p-4 mb-0">画像投稿フォーム</h5>
+      <%#  "form-body"：フォーム内の本文やコンテンツを格納するためのクラス   "p-4"：パディング（余白）を4つ分追加するためのクラス %>
+      <div class="form-body p-4">
+        <%# errors.any? エラーが発生しているか？ %>
+        <% if @post_image.errors.any? %>
+          <%#  "alert alert-danger"：Bootstrapのアラート（alert）コンポーネントを赤色の危険タイプ（Danger）に設定するためのクラス %>
+          <%#  "role="alert""：この属性は、スクリーンリーダーなどの支援技術が意味的に正しい方法でアラートを処理できるようにするためのもの %>
+          <ul class="alert alert-danger" role="alert">
+            <%# "alert-heading""：アラートコンポーネント内で重要な見出し（Heading）に適用されるクラス %>
+            <h6 class="alert-heading">
+              <%# errors.count エラーの数をカウント %>
+              <%= @post_image.errors.count %>件のエラーが発生しました
+            </h6>
+            <%# errors.full_messages エラーの内容を出力 %>
+            <% @post_image.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <%= form_with model: @post_image do |f| %>
+          <%# :image"：フォームフィールドの名前（パラメーター名） %>
+          <%# "accept: "image/*""：アップロードできるファイルの種類を画像ファイルに制限 %>
+          <%# "w-100""：フォームフィールドに幅100%を設定するBootstrapのクラス %>
+          <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+          <%# "input-group"：Bootstrapのクラスで、入力フィールドやボタンなどのコンポーネントをまとめるためのグループ化クラス %>
+          <%# "mb-3"：下部（Bottom）マージン（余白）を3のスペース分設定するためのクラス "mt-4"：上部（Top）マージン（余白）を4のスペース分設定するためのクラス %>
+          <div class="input-group mb-3 mt-4">
+            <%#  "input-group-prepend"：Bootstrapのクラスで、入力グループ内の要素が前に配置されることを示すクラスです。 %>
+            <%# このクラスを使用すると、入力フィールドやボタンなどの前に配置される要素にスタイリングを適用することができる %>
+            <div class="input-group-prepend">
+              <%# "input-group-text"は、Bootstrapの入力グループ（Input Group）で使用されるクラスで、フォームコントロール要素の前に配置されるテキストや要素を装飾するためのクラス %>
+              <%# "aria-hidden="true""は、アクセシビリティ（Accessibility）の観点から、画面上で表示されるがスクリーンリーダーなどの支援技術には非表示として示すための属性 %>
+              <%# "aria-hidden"属性に"true"を設定することで、その要素がスクリーンリーダーに非表示として扱われ、読み上げや操作の対象外となります %>
+              <%# class="fas fa-building"：FontAwesomeの"fa-building"アイコンを表示するための要素 "fas"はSolidアイコンスタイルを指定し、"fa-building"は建物アイコンを意味します。%>
+              <span class="input-group-text" aria-hidden="true"><i class="fas fa-building"></i></span>
+            </div>
+            <%# ":shop_name"：フォームフィールドの名前（パラメーター名） %>
+            <%# "class: "form-control""：フォームフィールドにBootstrapのスタイルを適用するためのクラス。「form-control」クラスは、Bootstrapのスタイルを適用してフォームフィールドを整形 %>
+            <%# "placeholder: "ショップ名""：フォームフィールドにプレースホルダーとして表示されるテキストを指定。ユーザーが入力するべき内容を示すためのヒントとして表示される %>
+            <%= f.text_field :shop_name, class: "form-control", placeholder: "ショップ名" %>
+          </div>
+          <%#  "rows: "3""：テキストエリアの表示行数を3行に設定するオプション。これにより、最初から3行の高さが表示される %>
+          <%= f.text_area :caption, class: "form-control", rows: "3", placeholder: "コメントここに" %>
+          <hr>
+          <%# "btn"：Bootstrapのボタンスタイルを適用するためのクラス %>
+          <%# "btn-lg"：大きなサイズのボタンを示すクラス %>
+          <%# "btn-block"：ボタンを幅いっぱいに広げるためのクラス %>
+          <%# "btn-info"：情報を表す青色のボタンスタイルを適用するクラス %>
+          <%# "mt-4"：上部（Top）マージン（余白）を4のスペース分設定するためのクラス %>
+          <%= f.submit '投稿', class: "btn btn-lg btn-block btn-info mt-4" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
