@@ -1,19 +1,42 @@
-<% post_images.each do |post_image| %>
-  <div>
-    <%= link_to post_image_path(post_image.id) do %>
-      <%= image_tag post_image.get_image %>
-    <% end %>
-
-    <!--post_image.userで、投稿画像に紐づいたユーザーの情報(投稿したユーザーの情報)を取得できる-->
-    <!--Userモデルに記述しているget_profile_imageメソッドが使える-->
-    <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
-
-    <p>ショップ名：<%= post_image.shop_name %></p>
-    <p>説明：<%= post_image.caption %></p>
-    <p>ユーザーネーム：<%= post_image.user.name %></p>
-    <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
-  </div>
-<% end %>
-
-<%= paginate post_images %>
-
+<div class="card-list-container py-5">
+  <% post_images.each do |post_image| %>
+    <%# "card"：Bootstrapのカード（Card）スタイルを適用するためのクラス %>
+    <%# "w-50"：幅（Width）を50%に設定するためのクラスです。要素の幅が親要素の50% %>
+    <%# "mx-auto"：左右のマージン（Margin）を自動で設定するためのクラスです。要素を水平方向に中央揃え %>
+    <%# "mt-4"：上部のマージン（Margin） %>
+    <%# "shadow-lg"：要素に大きな影を付けるためのクラス  "lg"は影の大きさ  　大きい影%>
+    <div class="card w-50 mx-auto mt-4 shadow-lg">
+      <%= link_to post_image_path(post_image.id) do %>
+        <%# "card-img-top"：Bootstrapのカード（Card）コンポーネント内で、画像をカードの上部に配置するためのクラス %>
+        <%= image_tag post_image.get_image, class: "card-img-top"; %>
+      <% end %>
+      <%# "card-body"：Bootstrapのカード内で、テキストやボタンなどの本文やコンテンツを配置するコンテナを示すクラス %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-2">
+            <%# post_image.userで、投稿画像に紐づいたユーザーの情報(投稿したユーザーの情報)を取得できる %>
+            <%# Userモデルに記述しているget_profile_imageメソッドが使える %>
+            <%#  "mt-3 : margin-top:3の意味    "rounded-circle"：要素を角丸の円形（丸型）にするためのクラス　 %>
+            <%= image_tag post_image.user.get_profile_image(100,100), class: "mt-3 rounded-circle"; %>
+          </div>
+          <div class="col-10">
+            <%# "class="card-title"は、Bootstrapのカード（Card）コンポーネント内でタイトルを表示するためのクラス %>
+            <p class="card-title">
+              <%# 'text-dark'"は、テキストの色を暗くするためのクラス %>
+              <%= link_to(post_image_path(post_image.id), class: "text-dark") do %>
+                <%# "far fa-flag"はFontAwesomeのクラス名で、"fa-flag"は旗のアイコンを表し、"fa-2x"などのクラスを追加することでサイズを変えられる %>
+                <strong><i class="far fa-flag"></i><span> <%= post_image.shop_name %></span></strong>
+              <% end %>
+            </p>
+            <%# "card-text"は、Bootstrapのカード（Card）コンポーネント内で本文やテキストを配置するためのクラス %>
+            <p class="card-text">説明：<%= post_image.caption %></p>
+            <%# "fas fa-user"は、FontAwesomeアイコンセットの中からユーザー（User）アイコンを表示するためのクラス %>
+            <span><i class="fas fa-user"></i> By <%= post_image.user.name %> ｜ </span>
+            <span><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id), class: "text-dark" %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate post_images %>
+</div>

@@ -23,8 +23,8 @@
     <header class="shadow-sm">
       <%# "navbar"：Navbarコンポーネントの基本的なスタイルを適用するクラス %>
       <%# "navbar-expand-lg"：LG（Large）サイズ以上のデバイスでNavbarが展開される.そうでない場合ハンバーガーメニューになる %>
-      <%# "navbar-light"：明るい色調のNavbarを表現するクラス ※navbar-[カラースキーム]の指定がないと画面幅が変化したときに、
-      ナビゲーションアイコン（ハンバーガーメニュー）に配色が当たらないために画面上には要素は存在するが、見えないといったことが起こります。%>
+      <%# "navbar-light"：明るい色調のNavbarを表現するクラス ※navbar-[カラースキーム]の指定がないと画面幅が変化したときに、%>
+      <%#ナビゲーションアイコン（ハンバーガーメニュー）に配色が当たらないために画面上には要素は存在するが、見えないといったことが起こります。%>
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
           <%# "navbar-bran"ロゴに使用されるnavbarのサポートClass %>
@@ -52,8 +52,8 @@
             <ul class="navbar-nav ml-auto">
               <!--"user_signd_in?" :devise 側で用意しているヘルパーメソッドログインしているかしていないかを判断.ログイン済みtrue-->
               <% if user_signed_in? %>
-                <%# "nav-link"：Bootstrapで提供されるナビゲーションメニュー内のリンク（navbar link）に適用されるクラス。
-                このクラスが付与されたリンクは、Navbar内のナビゲーションメニューとして適切なスタイルと挙動を持つ %>
+                <%# "nav-link"：Bootstrapで提供されるナビゲーションメニュー内のリンク（navbar link）に適用されるクラス。%>
+                <%#このクラスが付与されたリンクは、Navbar内のナビゲーションメニューとして適切なスタイルと挙動を持つ %>
                 <%# "text-dark"：テキストの色を暗くするためのクラス %>
                 <li class="nav-item">
                   <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
