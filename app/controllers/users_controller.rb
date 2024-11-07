@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  # エディット、アップデート前にログインしているユーザー以外の情報は編集できないようにする
+  before_action :is_matching_login_user, only: [:edit, :update]
+
   # プロフィール詳細
   def show
 
@@ -23,6 +26,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :profile_image)
+  end
+
+  # ログインしているユーザー以外の情報は編集できないようにする
+  def is_matching_login_user
+    user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to post_images_path
+    end
   end
 
 end
