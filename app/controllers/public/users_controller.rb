@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Public::UsersController < ApplicationController
   # エディット、アップデート前にログインしているユーザー以外の情報は編集できないようにする
   before_action :is_matching_login_user, only: [:edit, :update]
 
