@@ -4,6 +4,11 @@ Rails.application.routes.draw do
     sessions: 'admin/sessions'
   }
 
+  # /admin/dashboardsにアクセスするとadmin/dashboards_controller.rbのindexアクションを処理
+  namespace :admin do
+    get 'dashboards', to: 'dashboards#index'
+  end
+
   devise_for :users
   root 'homes#top'
   get 'homes/about' => 'homes#about' , as: 'about'
