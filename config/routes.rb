@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :admins
+
+  devise_for :admin,skip:[:registrations, :password], controllers: {
+    sessions: 'admin/sessions'
+  }
+
   devise_for :users
   root 'homes#top'
   get 'homes/about' => 'homes#about' , as: 'about'
