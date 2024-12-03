@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # /admin/dashboardsにアクセスするとadmin/dashboards_controller.rbのindexアクションを処理
   namespace :admin do
     get 'dashboards', to: 'dashboards#index'
+    resources :users, only: [:destroy]
   end
 
   devise_for :users
